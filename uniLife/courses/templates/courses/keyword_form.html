@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add/Edit Keyword</title>
+</head>
+<body>
+    <h1>Add or Edit Keyword</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Keyword</button>
+    </form>
+    <a href="{% url 'index' %}">Back to Course List</a>
+</body>
+</html>

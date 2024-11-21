@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Detail</title>
+</head>
+<body>
+    <h1>{{ course.name }}</h1>
+    <p><strong>Content:</strong> {{ course.content }}</p>
+    <p><strong>Learned:</strong> {{ course.learned }}</p>
+    
+    {% if course.images %}
+        <img src="{{ course.images.url }}" alt="{{ course.name }}" style="max-width: 300px;">
+    {% endif %}
+
+    <h2>Keywords</h2>
+    <ul>
+        {% for keyword in course.keywords.all %}
+            <li>{{ keyword.english }} - {{ keyword.turkish }} - {{ keyword.norwegian }}</li>
+        {% empty %}
+            <p>No keywords added for this course yet.</p>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'keyword_create' %}">Add Keyword for This Course</a> <!-- Dersi seçmeyi keyword_create kısmında dropdown ile sağlayacağız -->
+    <br><br>
+    <a href="{% url 'index' %}">Back to Course List</a>
+</body>
+</html>

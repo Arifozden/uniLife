@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Keyword List</title>
+</head>
+<body>
+    <h1>All Keywords</h1>
+    <form method="get">
+        <label for="course">Filter by course:</label>
+        <select name="course" id="course">
+            <option value="">All Courses</option>
+            {% for course in courses %}
+                <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+    <ul>
+        {% for keyword in keywords %}
+            <li>{{ keyword.english }} - {{ keyword.turkish }} - {{ keyword.norwegian }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
