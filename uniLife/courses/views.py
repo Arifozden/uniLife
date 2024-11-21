@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Course, Keyword
 from .forms import CourseForm, KeywordForm
+from .filters import KeywordFilter
 
 # Ana sayfa: Tüm derslerin listesi
 def index(request):
@@ -56,12 +57,14 @@ def keyword_create(request):
 
 # Anahtar kelime listesi
 def keyword_list(request):
-    keywords = Keyword.objects.all()
     courses = Course.objects.all()
-    course_id = request.GET.get('course')
-    if course_id:
-        keywords = keywords.filter(course_id=course_id)
-    return render(request, 'courses/keyword_list.html', {'keywords': keywords, 'courses': courses})
+    keywords = Keyword.objects.all()
+    keyword_filter = KeywordFilter(request.GET, queryset=keywords)
+    return render(request, 'courses/keyword_list.html', {
+        'keywords': keyword_filter.qs,
+        'courses': courses,
+        'filter': keyword_filter,
+    })
 
 # Anahtar kelime düzenleme
 def keyword_edit(request, pk):

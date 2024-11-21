@@ -4,6 +4,7 @@
 
 {% block content %}
     <h1>Keyword List</h1>
+    <a href="{% url 'keyword_create' %}" class="btn btn-primary">Add Keyword</a>
     <form method="get">
         <label for="course">Filter by Course:</label>
         <select name="course" id="course" class="form-control">
@@ -14,14 +15,16 @@
                 </option>
             {% endfor %}
         </select>
+        <label for="search">Search Keywords:</label>
+        <input type="text" name="search" id="search" value="{{ request.GET.search }}" class="form-control">
         <button type="submit" class="btn btn-primary mt-2">Filter</button>
     </form>
     
-    <table class="table mt-4">
+    <table class="table">
         <thead>
             <tr>
-                <th>Turkish</th>
                 <th>English</th>
+                <th>Turkish</th>
                 <th>Norwegian</th>
                 <th>Course</th>
                 <th>Image</th>
@@ -30,28 +33,19 @@
         <tbody>
             {% for keyword in keywords %}
                 <tr>
-                    <td><a href="{% url 'keyword_detail' keyword.id %}">{{ keyword.english }}</a></td>  <!-- İngilizce kelime, link olarak -->
-                    <td>{{ keyword.turkish }}</td>  <!-- Türkçe kelime -->
-                    <td>{{ keyword.norwegian }}</td>  <!-- Norveççe kelime -->
-                    <td>{{ keyword.course.name }}</td>  <!-- Dersin adı -->
+                    <td>{{ keyword.english }}</td>
+                    <td>{{ keyword.turkish }}</td>
+                    <td>{{ keyword.norwegian }}</td>
+                    <td>{{ keyword.course.name }}</td>
                     <td>
-                        {% if keyword.image %}
-                            <a href="{% url 'keyword_image_detail' keyword.id %}">
-                                <img src="{{ keyword.image.url }}" alt="Image" style="width: 50px; height: 50px; object-fit: cover;">
-                            </a>
-                        {% else %}
-                            No image
-                        {% endif %}
-                    </td>  <!-- Resim -->
+                        <img src="{{ keyword.image.url }}" alt="{{ keyword.word }}" width="50">
+                    </td>
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="5">No keywords available.</td>
+                    <td colspan="5">No keywords found.</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    
-    <a href="{% url 'keyword_create' %}" class="btn btn-primary">Add Keyword</a>
-    <a href="{% url 'index' %}" class="btn btn-secondary">Back to Courses</a>
 {% endblock %}
