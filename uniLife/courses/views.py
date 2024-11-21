@@ -82,3 +82,11 @@ def keyword_delete(request, pk):
         keyword.delete()
         return redirect('keyword_list')
     return render(request, 'courses/keyword_delete.html', {'keyword': keyword})
+
+def keyword_image_detail(request, pk):
+    keyword = get_object_or_404(Keyword, pk=pk)
+    return render(request, 'courses/keyword_image_detail.html', {'keyword': keyword})
+
+def keyword_detail(request, pk):
+    keyword = get_object_or_404(Keyword, pk=pk)
+    return render(request, 'courses/keyword_detail.html', {'keyword': keyword})

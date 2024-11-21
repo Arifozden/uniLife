@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Keyword Detail{% endblock %}
+
+{% block content %}
+    <h1>{{ keyword.word }} - Detail</h1>
+    <p><strong>English:</strong> {{ keyword.english }}</p>
+    <p><strong>Turkish:</strong> {{ keyword.turkish }}</p>
+    <p><strong>Norwegian:</strong> {{ keyword.norwegian }}</p>
+    <p><strong>Image:</strong> {% if keyword.image %}<img src="{{ keyword.image.url }}" alt="Image" style="width: 500px; object-fit: cover;">{% else %}No image{% endif %}</p>
+    <p><strong>Course:</strong> {{ keyword.course.name }}</p>
+    
+    <a href="{% url 'keyword_list' %}" class="btn btn-secondary">Back to Keyword List</a>
+{% endblock %}

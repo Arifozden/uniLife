@@ -14,4 +14,6 @@ urlpatterns = [
     path('keywords/', views.keyword_list, name='keyword_list'),  # Anahtar kelime listesi
     path('keyword/<int:pk>/edit/', views.keyword_edit, name='keyword_edit'),  # Kelime düzenleme
     path('keyword/<int:pk>/delete/', views.keyword_delete, name='keyword_delete'),  # Kelime silme
+    path('keyword/<int:pk>/', views.keyword_detail, name='keyword_detail'),  # Kelime detayı
+    path('keyword/<int:pk>/image/', views.keyword_image_detail, name='keyword_image_detail'),  # Kelime resmi
 ]

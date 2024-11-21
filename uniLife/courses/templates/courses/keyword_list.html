@@ -16,11 +16,42 @@
         </select>
         <button type="submit" class="btn btn-primary mt-2">Filter</button>
     </form>
-    <ul>
-        {% for keyword in keywords %}
-            <li>{{ keyword.word }} ({{ keyword.course.name }})</li>
-        {% empty %}
-            <p>No keywords available.</p>
-        {% endfor %}
-    </ul>
+    
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Turkish</th>
+                <th>English</th>
+                <th>Norwegian</th>
+                <th>Course</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for keyword in keywords %}
+                <tr>
+                    <td><a href="{% url 'keyword_detail' keyword.id %}">{{ keyword.english }}</a></td>  <!-- İngilizce kelime, link olarak -->
+                    <td>{{ keyword.turkish }}</td>  <!-- Türkçe kelime -->
+                    <td>{{ keyword.norwegian }}</td>  <!-- Norveççe kelime -->
+                    <td>{{ keyword.course.name }}</td>  <!-- Dersin adı -->
+                    <td>
+                        {% if keyword.image %}
+                            <a href="{% url 'keyword_image_detail' keyword.id %}">
+                                <img src="{{ keyword.image.url }}" alt="Image" style="width: 50px; height: 50px; object-fit: cover;">
+                            </a>
+                        {% else %}
+                            No image
+                        {% endif %}
+                    </td>  <!-- Resim -->
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No keywords available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="{% url 'keyword_create' %}" class="btn btn-primary">Add Keyword</a>
+    <a href="{% url 'index' %}" class="btn btn-secondary">Back to Courses</a>
 {% endblock %}
