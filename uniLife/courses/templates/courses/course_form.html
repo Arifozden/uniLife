@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Course</title>
-</head>
-<body>
-    <h1>Add New Course</h1>
+{% extends "base.html" %}
+
+{% block title %}Add/Edit Course{% endblock %}
+
+{% block content %}
+    <h1 class="my-4">Add or Edit Course</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save Course</button>
+        <button type="submit" class="btn btn-success">Save Course</button>
     </form>
-</body>
-</html>
+    <a href="{% url 'index' %}" class="btn btn-secondary mt-3">Back to Course List</a>
+{% endblock %}

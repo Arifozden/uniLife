@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Course Detail</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Add Course{% endblock %}
+
+{% block content %}
     <h1>{{ course.name }}</h1>
     <p><strong>Content:</strong> {{ course.content }}</p>
     <p><strong>Learned:</strong> {{ course.learned }}</p>
@@ -24,6 +22,6 @@
 
     <a href="{% url 'keyword_create' %}">Add Keyword for This Course</a> <!-- Dersi seçmeyi keyword_create kısmında dropdown ile sağlayacağız -->
     <br><br>
-    <a href="{% url 'index' %}">Back to Course List</a>
-</body>
-</html>
+    <a href="{% url 'index' %}" class="btn btn-secondary mt-3">Back to Course List</a>
+{% endblock %}
+

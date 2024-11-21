@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Course, Keyword
 
-# Register your models here.
+# Modelleri admin paneline kaydet
+admin.site.register(Course)
+admin.site.register(Keyword)
