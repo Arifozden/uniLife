@@ -11,6 +11,7 @@
             <li><a href="{% url 'course_detail' course.pk %}">{{ course.name }}</a></li>
         {% endfor %}
     </ul>
-    <a href="{% url 'course_create' %}">Add New Course</a>
+    <a href="{% url 'course_create' %}">Add New Course</a><br>
+    <a href="{% url 'keyword_list' %}">Keywords</a> 
 </body>
 </html>
