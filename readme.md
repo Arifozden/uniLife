@@ -12,7 +12,7 @@ Django Filter kütüphanesi ile daha gelişmiş filtreleme özellikleri ekleyebi
 Kategori veya etiket sistemi ekleyerek kursları ve anahtar kelimeleri sınıflandırabilirsiniz. Örneğin, dersleri farklı kategorilere (Matematik, Fizik, Yazılım vb.) ayırabilirsiniz.
 ManyToManyField kullanarak kursları birden fazla kategoriye veya etikete bağlayabilirsiniz.
 
-4. Kullanıcı Girişi ve Yetkilendirme
+4. Kullanıcı Girişi ve Yetkilendirme-buradayiz
 Kullanıcı hesapları ekleyip, kullanıcıların kendi derslerini eklemesi ve takip etmesi gibi özellikler ekleyebilirsiniz.
 Yetkilendirme ekleyerek sadece belirli kullanıcıların ders ve anahtar kelime ekleme veya düzenleme yapmasını sağlayabilirsiniz.
 
