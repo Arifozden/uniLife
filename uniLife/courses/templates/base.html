@@ -10,7 +10,19 @@
 </head>
 <body>
     <div class="container">
-        {% block content %}{% endblock %}
+        
+        {% block content %}
+<div>
+    {% if user.is_authenticated %}
+        <p>Hello, {{ user.username }}!</p>
+        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'courses:course_create' %}">Create New Course</a>  <!-- Ders ekleme butonu -->
+    {% else %}
+        <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+</div>
+{% endblock %}
+
     </div>
 
     <!-- Bootstrap JavaScript and dependencies -->

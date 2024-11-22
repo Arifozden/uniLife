@@ -15,6 +15,7 @@ ManyToManyField kullanarak kursları birden fazla kategoriye veya etikete bağla
 4. Kullanıcı Girişi ve Yetkilendirme
 Kullanıcı hesapları ekleyip, kullanıcıların kendi derslerini eklemesi ve takip etmesi gibi özellikler ekleyebilirsiniz.
 Yetkilendirme ekleyerek sadece belirli kullanıcıların ders ve anahtar kelime ekleme veya düzenleme yapmasını sağlayabilirsiniz.
+
 5. Dosya Yükleme ve Görüntüleme
 Ders ve anahtar kelimelere resimlerin yanı sıra, PDF veya belge yükleme imkanı da ekleyebilirsiniz.
 Böylece her dersin veya anahtar kelimenin ilişkili bir dokümanı veya sunumu olabilir.

@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
@@ -16,4 +17,9 @@ urlpatterns = [
     path('keyword/<int:pk>/delete/', views.keyword_delete, name='keyword_delete'),  # Kelime silme
     path('keyword/<int:pk>/', views.keyword_detail, name='keyword_detail'),  # Kelime detayı
     path('keyword/<int:pk>/image/', views.keyword_image_detail, name='keyword_image_detail'),  # Kelime resmi
+
+    # Kullanıcı Girişi ve Çıkışı
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('signup/', views.signup, name='signup'),  # Kullanıcı kaydı için view
 ]

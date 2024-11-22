@@ -1,7 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import CreateView, ListView  # CreateView ve ListView'ı burada import ediyoruz
+from django.views.generic.edit import UpdateView  # UpdateView'ı burada import ediyoruz
 from .models import Course, Keyword, Category, Tag
 from .forms import CourseForm, KeywordForm
 from .filters import KeywordFilter
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 # Ana sayfa: Tüm derslerin listesi
 # views.py
@@ -114,3 +119,42 @@ def keyword_image_detail(request, pk):
 def keyword_detail(request, pk):
     keyword = get_object_or_404(Keyword, pk=pk)
     return render(request, 'courses/keyword_detail.html', {'keyword': keyword})
+
+def signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Kayıt başarılı olduktan sonra login sayfasına yönlendir
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+def user_courses(request):
+    # Kullanıcının oluşturduğu dersleri filtreleyin
+    courses = Course.objects.filter(created_by=request.user)  # Kullanıcının oluşturduğu dersler
+    return render(request, 'courses/user_courses.html', {'courses': courses})
+
+class CourseCreateView(LoginRequiredMixin, CreateView):
+    model = Course
+    fields = ['name', 'content', 'categories', 'tags']
+    template_name = 'courses/course_form.html'
+    success_url = '/courses/'  # Başarıyla oluşturduktan sonra yönlendirme
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user  # Kursu oluşturan kullanıcıyı ekliyoruz
+        return super().form_valid(form)
+    
+class CourseEditView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
+    model = Course
+    fields = ['name', 'content', 'categories', 'tags']
+    template_name = 'courses/course_form.html'
+
+    def test_func(self):
+        course = self.get_object()
+        return course.created_by == self.request.user  # Kullanıcının kursu oluşturmuş olması gerekmekte
+    
+class CourseListView(LoginRequiredMixin, ListView):
+    model = Course
+    template_name = 'courses/course_list.html'
+    context_object_name = 'courses'
