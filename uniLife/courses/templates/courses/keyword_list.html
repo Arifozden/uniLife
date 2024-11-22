@@ -20,6 +20,22 @@
         <button type="submit" class="btn btn-primary mt-2">Filter</button>
     </form>
     
+    <!-- keyword_list.html -->
+
+<form method="get">
+    <label for="tag">Filter by Tag:</label>
+    <select name="tag" id="tag" class="form-control">
+        <option value="">All Tags</option>
+        {% for tag in tags %}
+            <option value="{{ tag.id }}" {% if tag.id == request.GET.tag %}selected{% endif %}>
+                {{ tag.name }}
+            </option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-primary mt-2">Filter</button>
+</form>
+
+
     <table class="table">
         <thead>
             <tr>

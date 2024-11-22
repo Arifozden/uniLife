@@ -1,12 +1,30 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Course, Keyword
+from .models import Course, Keyword, Category, Tag
 from .forms import CourseForm, KeywordForm
 from .filters import KeywordFilter
 
 # Ana sayfa: Tüm derslerin listesi
+# views.py
+
+from django.shortcuts import render
+from .models import Course, Category, Tag
+
 def index(request):
     courses = Course.objects.all()
-    return render(request, 'courses/index.html', {'courses': courses})
+    categories = Category.objects.all()
+    tags = Tag.objects.all()
+    
+    # Filtreleme
+    category_id = request.GET.get('category')
+    tag_id = request.GET.get('tag')
+
+    if category_id:
+        courses = courses.filter(categories__id=category_id)
+    if tag_id:
+        courses = courses.filter(tags__id=tag_id)
+
+    return render(request, 'courses/index.html', {'courses': courses, 'categories': categories, 'tags': tags})
+
 
 # Ders ekleme
 def course_create(request):
@@ -57,14 +75,17 @@ def keyword_create(request):
 
 # Anahtar kelime listesi
 def keyword_list(request):
-    courses = Course.objects.all()
     keywords = Keyword.objects.all()
-    keyword_filter = KeywordFilter(request.GET, queryset=keywords)
-    return render(request, 'courses/keyword_list.html', {
-        'keywords': keyword_filter.qs,
-        'courses': courses,
-        'filter': keyword_filter,
-    })
+    categories = Category.objects.all()
+    tags = Tag.objects.all()
+    
+    # Filtreleme
+    tag_id = request.GET.get('tag')
+    
+    if tag_id:
+        keywords = keywords.filter(tags__id=tag_id)
+
+    return render(request, 'courses/keyword_list.html', {'keywords': keywords, 'tags': tags})
 
 # Anahtar kelime düzenleme
 def keyword_edit(request, pk):
