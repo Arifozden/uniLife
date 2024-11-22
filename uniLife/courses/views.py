@@ -7,6 +7,7 @@ from .forms import CourseForm, KeywordForm
 from .filters import KeywordFilter
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
 # Ana sayfa: Tüm derslerin listesi
 # views.py
@@ -32,6 +33,7 @@ def index(request):
 
 
 # Ders ekleme
+
 def course_create(request):
     if request.method == 'POST':
         form = CourseForm(request.POST, request.FILES)
